@@ -24,8 +24,10 @@ class CLConsole
     res = JSON.parse(open(url).string)
     puts ">> q: #{res["q"]} (#{res["search_duration"]}ms / #{res["fetch_duration"]}ms)"
     res
+  rescue Exception => e
+    puts "An exception occurred: #{e.message}"
   end
-  
+
   # do the query, and only give me the rows
   def qr(query, opts={})
     q(query,opts)["rows"]
