@@ -47,8 +47,9 @@ class CLConsole
   # helper to escape searchterms properly for lucene search queries
   def escape(str)
     lucene_chars = %w{+ - & | ! ( ) { } [ ] ^ " ~ * ? : \\}.collect {|e| Regexp.escape(e)}
-    str.gsub!(/(#{lucene_chars.join("|")})/, '\\\\\1')
+    str.gsub(/(#{lucene_chars.join("|")})/, '\\\\\1')
   end
+  alias :e :escape
   
   # display help message
   def help
@@ -80,6 +81,8 @@ cl.qd "title:(couchdb OR lucene) AND body:(awesome AND \#{cl.escape(':-)')})"
 
 cl.info         # get index infos
 cl.help         # this info
+cl.e "~^"       # helper: proper escaping of lucene query operators
+  => \~\^
 ------------------------------------------------------------------------------
     HELP_MSG
   end
